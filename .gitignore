@@ -1,0 +1,7 @@
+certs/*
+volumes/*/*
+backups/*
+
+**/.env
+
+!**/.gitkeep

@@ -1,0 +1,4 @@
+# Enforce `lf` for text files
+# As else Docker, which is Linux based,
+# Sometime does shit on Windows
+text	eol=lf
