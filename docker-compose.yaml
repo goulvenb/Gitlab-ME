@@ -7,11 +7,11 @@ services:
             # Domain names
             - 'GITLAB_DOMAIN=${GITLAB_DOMAIN?error}'
             - 'GITLAB_REGISTRY_DOMAIN=${GITLAB_REGISTRY_DOMAIN?error}'
-			# Necessary for both the date format of backups
-			# And the time shown on commits
+            # Necessary for both the date format of backups
+            # And the time shown on commits
             - 'TZ=${TIMEZONE:-UTC}'
-			# Only affect the text shown when cloning with SSH
-			# And not the actual SSH port
+            # Only affect the text shown when cloning with SSH
+            # And not the actual SSH port
             - 'SSH_PORT=${SSH_PORT:-22}'
             # SAML/SSO
             - 'SAML_IDP_CERT_FINGERPRINT=${SAML_IDP_CERT_FINGERPRINT?error}'
