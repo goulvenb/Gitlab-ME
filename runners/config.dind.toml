@@ -1,0 +1,13 @@
+[[runners]]
+    name = "Docker in Docker"
+    url = "https://${DOMAIN_GITLAB}/"
+    token = "${TOKEN}"
+    tls-ca-file = "/certs/ca.crt"
+    executor = "docker"
+    environment = [ "DOCKER_HOST=unix:///runner/services/docker/docker.sock" ]
+    [runners.docker]
+        image = "docker:${DOCKER_VERSION}"
+        volumes = [ "/runner/services/docker", "/builds:/builds" ]
+        privileged = true
+        [[runners.docker.services]]
+            name = "docker:${DOCKER_VERSION}-dind"

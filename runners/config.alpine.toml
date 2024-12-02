@@ -1,0 +1,9 @@
+[[runners]]
+    name = "Alpine"
+    url = "https://${DOMAIN_GITLAB}/"
+    token = "${TOKEN}"
+    tls-ca-file = "/certs/ca.crt"
+    executor = "docker"
+    [runners.docker]
+        image = "alpine:latest"
+        volumes = [ "/builds:/builds" ]

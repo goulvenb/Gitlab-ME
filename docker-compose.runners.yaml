@@ -1,0 +1,50 @@
+services:
+    runner-dind:
+        build:
+            context: runners
+            args:
+                VERSION: ${GITLAB_VERSION?error}
+        restart: always
+        environment:
+            TOKEN: ${RUNNER_TOKEN_DIND?error}
+            DOMAIN_GITLAB: ${DOMAIN_GITLAB?error}
+            DOCKER_VERSION: ${HOST_DOCKER_VERSION?error}
+        volumes:
+            - ./runners/config.dind.toml:/etc/gitlab-runner/config.toml
+            - /var/run/docker.sock:/var/run/docker.sock
+
+    runner-alpine:
+        build:
+            context: runners
+            args:
+                VERSION: ${GITLAB_VERSION?error}
+        restart: always
+        environment:
+            TOKEN: ${RUNNER_TOKEN_ALPINE?error}
+            DOMAIN_GITLAB: ${DOMAIN_GITLAB?error}
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+
+    runner-debian-bookworm:
+        build:
+            context: runners
+            args:
+                VERSION: ${GITLAB_VERSION?error}
+        restart: always
+        environment:
+            TOKEN: ${RUNNER_TOKEN_DEBIAN_BOOKWORM?error}
+            DOMAIN_GITLAB: ${DOMAIN_GITLAB?error}
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+
+    runner-debian-bullseye:
+        build:
+            context: runners
+            args:
+                VERSION: ${GITLAB_VERSION?error}
+        restart: always
+        environment:
+            TOKEN: ${RUNNER_TOKEN_DEBIAN_BULLSEYE?error}
+            DOMAIN_GITLAB: ${DOMAIN_GITLAB?error}
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock

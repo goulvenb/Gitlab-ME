@@ -1,0 +1,9 @@
+[[runners]]
+    name = "Debian Bookworm"
+    url = "https://${DOMAIN_GITLAB}/"
+    token = "${TOKEN}"
+    tls-ca-file = "/certs/ca.crt"
+    executor = "docker"
+    [runners.docker]
+        image = "debian:bookworm-slim"
+        volumes = [ "/builds:/builds" ]

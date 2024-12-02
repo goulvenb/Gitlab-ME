@@ -1,0 +1,9 @@
+[[runners]]
+    name = "Debian Bullseye"
+    url = "https://${DOMAIN_GITLAB}/"
+    token = "${TOKEN}"
+    tls-ca-file = "/certs/ca.crt"
+    executor = "docker"
+    [runners.docker]
+        image = "debian:bullseye-slim"
+        volumes = [ "/builds:/builds" ]

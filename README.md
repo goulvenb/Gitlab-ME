@@ -44,3 +44,13 @@ Then, you can run :
 ```sh
 docker-compose up -d
 ```
+
+## Runners
+
+Before starting, you need to put your CA certificate in `./certs/ca.crt`.
+
+Once that's done, you can simply do the following :
+
+```sh
+docker-compose -f docker-compose.runners.yaml up -d
+```
