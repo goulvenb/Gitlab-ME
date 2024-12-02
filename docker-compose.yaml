@@ -1,6 +1,10 @@
 services:
     gitlab:
-        build: .
+        build:
+            context: .
+            args:
+                VERSION: ${GITLAB_VERSION?error}
+                REVISION: ${GITLAB_REVISION?error}
         container_name: gitlab
         restart: 'always'
         environment:
