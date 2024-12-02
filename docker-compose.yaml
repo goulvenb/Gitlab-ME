@@ -6,7 +6,7 @@ services:
         environment:
             # Domain names
             - 'GITLAB_DOMAIN=${GITLAB_DOMAIN?error}'
-            - 'GITLAB_REGISTRY_DOMAIN=${GITLAB_REGISTRY_DOMAIN?error}'
+            - 'GITLAB_REGISTRY_DOMAIN=${GITLAB_REGISTRY_DOMAIN}'
             # Necessary for both the date format of backups
             # And the time shown on commits
             - 'TZ=${TIMEZONE:-UTC}'
