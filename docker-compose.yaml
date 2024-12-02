@@ -14,8 +14,8 @@ services:
             # And not the actual SSH port
             - 'SSH_PORT=${SSH_PORT:-22}'
             # SAML/SSO
-            - 'SAML_IDP_CERT_FINGERPRINT=${SAML_IDP_CERT_FINGERPRINT?error}'
-            - 'SAML_IDP_SSO_TARGET_URL=${SAML_IDP_SSO_TARGET_URL?error}'
+            - 'SAML_IDP_CERT_FINGERPRINT=${SAML_IDP_CERT_FINGERPRINT}'
+            - 'SAML_IDP_SSO_TARGET_URL=${SAML_IDP_SSO_TARGET_URL}'
         ports:
             - '7080:80'
             - '7443:443'

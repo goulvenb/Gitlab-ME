@@ -1,4 +1,10 @@
 ####################################################################################
+###                                   VARIABLES                                  ###
+####################################################################################
+enable_saml = !"#{ENV['SAML_IDP_CERT_FINGERPRINT']}".to_s.strip.empty? && !"#{ENV['SAML_IDP_SSO_TARGET_URL']}".to_s.strip.empty?
+
+
+####################################################################################
 ###                                OMNIBUS CONFIG                                ###
 ###==============================================================================###
 ### url: https://docs.gitlab.com/omnibus/settings/configuration.html             ###
@@ -38,20 +44,22 @@ registry_nginx["ssl_certificate"] = "/certs/#{ENV['GITLAB_REGISTRY_DOMAIN']}/#{E
 registry_nginx["ssl_certificate_key"] = "/certs/#{ENV['GITLAB_REGISTRY_DOMAIN']}/#{ENV['GITLAB_REGISTRY_DOMAIN']}.key"
 ## SSO/SAML
 # url: https://docs.gitlab.com/ee/integration/saml.html
-gitlab_rails["omniauth_allow_single_sign_on"] = ["saml"]
-gitlab_rails["omniauth_block_auto_created_users"] = false
-gitlab_rails["omniauth_auto_link_saml_user"] = true
-gitlab_rails["omniauth_providers"] = [{
-    name: "saml",
-    label: "SSO Login",
-    args: {
-        assertion_consumer_service_url: "https://#{ENV['GITLAB_DOMAIN']}/users/auth/saml/callback",
-        idp_cert_fingerprint: "#{ENV['SAML_IDP_CERT_FINGERPRINT']}",
-        idp_sso_target_url: "#{ENV['SAML_IDP_SSO_TARGET_URL']}",
-        issuer: "https://#{ENV['GITLAB_DOMAIN']}",
-        name_identifier_format: "urn:oasis:names:tc:SAML:2.0:nameid-format:persistent"
-    }
-}]
+if (enable_saml)
+    gitlab_rails["omniauth_allow_single_sign_on"] = ["saml"]
+    gitlab_rails["omniauth_block_auto_created_users"] = false
+    gitlab_rails["omniauth_auto_link_saml_user"] = true
+    gitlab_rails["omniauth_providers"] = [{
+        name: "saml",
+        label: "SSO Login",
+        args: {
+            assertion_consumer_service_url: "https://#{ENV['GITLAB_DOMAIN']}/users/auth/saml/callback",
+            idp_cert_fingerprint: "#{ENV['SAML_IDP_CERT_FINGERPRINT']}",
+            idp_sso_target_url: "#{ENV['SAML_IDP_SSO_TARGET_URL']}",
+            issuer: "https://#{ENV['GITLAB_DOMAIN']}",
+            name_identifier_format: "urn:oasis:names:tc:SAML:2.0:nameid-format:persistent"
+        }
+    }]
+end
 ## Backups
 gitlab_rails['backup_path'] = '/backups'
 # Automatically remove backups every 3 months

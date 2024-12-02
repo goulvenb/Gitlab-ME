@@ -3,5 +3,6 @@ volumes/*/*
 backups/*
 
 **/.env
+volumes.bak
 
 !**/.gitkeep
