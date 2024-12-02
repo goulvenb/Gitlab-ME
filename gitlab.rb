@@ -2,7 +2,7 @@
 ###                                   VARIABLES                                  ###
 ####################################################################################
 enable_saml = !"#{ENV['SAML_IDP_CERT_FINGERPRINT']}".to_s.strip.empty? && !"#{ENV['SAML_IDP_SSO_TARGET_URL']}".to_s.strip.empty?
-
+enable_registry = !"#{ENV['GITLAB_REGISTRY_DOMAIN']}".to_s.strip.empty?
 
 ####################################################################################
 ###                                OMNIBUS CONFIG                                ###
@@ -32,16 +32,18 @@ gitlab_rails["gitlab_ssh_host"] = "#{ENV['GITLAB_DOMAIN']}"
 # And not the actual SSH port
 gitlab_rails["gitlab_shell_ssh_port"] = "#{ENV['SSH_PORT']}"
 ## Container Registry
-# Domain name
-registry_external_url "https://#{ENV['GITLAB_REGISTRY_DOMAIN']}"
-# Mandatory
-nginx["enable"] = true
-registry_nginx["enable"] = true
-registry["enable"] = true
-gitlab_rails["registry_enabled"] = true
-gitlab_rails["registry_path"] = "/var/opt/gitlab/gitlab-rails/shared/registry"
-registry_nginx["ssl_certificate"] = "/certs/#{ENV['GITLAB_REGISTRY_DOMAIN']}/#{ENV['GITLAB_REGISTRY_DOMAIN']}.crt"
-registry_nginx["ssl_certificate_key"] = "/certs/#{ENV['GITLAB_REGISTRY_DOMAIN']}/#{ENV['GITLAB_REGISTRY_DOMAIN']}.key"
+nginx["enable"] = enable_registry
+registry_nginx["enable"] = enable_registry
+registry["enable"] = enable_registry
+gitlab_rails["registry_enabled"] = enable_registry
+if (enable_registry)
+    # Domain name
+    registry_external_url "https://#{ENV['GITLAB_REGISTRY_DOMAIN']}"
+    # Mandatory
+    gitlab_rails["registry_path"] = "/var/opt/gitlab/gitlab-rails/shared/registry"
+    registry_nginx["ssl_certificate"] = "/certs/#{ENV['GITLAB_REGISTRY_DOMAIN']}/#{ENV['GITLAB_REGISTRY_DOMAIN']}.crt"
+    registry_nginx["ssl_certificate_key"] = "/certs/#{ENV['GITLAB_REGISTRY_DOMAIN']}/#{ENV['GITLAB_REGISTRY_DOMAIN']}.key"
+end
 ## SSO/SAML
 # url: https://docs.gitlab.com/ee/integration/saml.html
 if (enable_saml)
