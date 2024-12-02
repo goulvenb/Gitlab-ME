@@ -32,7 +32,7 @@ gitlab_rails["gitlab_ssh_host"] = "#{ENV['GITLAB_DOMAIN']}"
 # And not the actual SSH port
 gitlab_rails["gitlab_shell_ssh_port"] = "#{ENV['SSH_PORT']}"
 ## Container Registry
-nginx["enable"] = enable_registry
+#nginx["enable"] = enable_registry
 registry_nginx["enable"] = enable_registry
 registry["enable"] = enable_registry
 gitlab_rails["registry_enabled"] = enable_registry
