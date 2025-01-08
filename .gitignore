@@ -1,6 +1,7 @@
-certs/*
-volumes/*/*
-backups/*
+/certs/*
+/volumes/*/*
+/backups/*
+/restore/*/*
 
 **/.env
 

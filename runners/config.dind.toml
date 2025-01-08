@@ -7,7 +7,7 @@
     environment = [ "DOCKER_HOST=unix:///runner/services/docker/docker.sock" ]
     [runners.docker]
         image = "docker:${DOCKER_VERSION}"
-        volumes = [ "/runner/services/docker", "/builds:/builds" ]
+        volumes = [ "/runner/services/docker" ]
         privileged = true
         [[runners.docker.services]]
             name = "docker:${DOCKER_VERSION}-dind"
