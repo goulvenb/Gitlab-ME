@@ -1,8 +1,8 @@
-certs/*
-volumes/*/*
-backups/*
+/certs/*
+/volumes/*/*
+/backups/*
+/restore/*/*
 
 **/.env
-volumes.bak
 
 !**/.gitkeep
