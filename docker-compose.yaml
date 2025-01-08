@@ -9,8 +9,8 @@ services:
         restart: 'always'
         environment:
             # Domain names
-            GITLAB_DOMAIN: ${GITLAB_DOMAIN?error}
-            GITLAB_REGISTRY_DOMAIN: ${GITLAB_REGISTRY_DOMAIN}
+            DOMAIN_GITLAB: ${DOMAIN_GITLAB?error}
+            DOMAIN_GITLAB_REGISTRY: ${DOMAIN_GITLAB_REGISTRY}
             # Necessary for both the date format of backups
             # And the time shown on commits
             TZ: ${TIMEZONE:-UTC}

@@ -11,7 +11,7 @@ enable_registry = !"#{ENV['GITLAB_REGISTRY_DOMAIN']}".to_s.strip.empty?
 ####################################################################################
 ## Basic
 # Domain name
-external_url "https://#{ENV['GITLAB_DOMAIN']}"
+external_url "https://#{ENV['DOMAIN_GITLAB']}"
 # Timezone
 # Necessary for both the date format of backups
 # And the time shown on commits
@@ -21,12 +21,12 @@ gitlab_rails["time_zone"] = "#{ENV['TZ']}"
 gitlab_pages['access_control'] = true
 # Needed for HTTPS
 # (And HTTPS is mandatory)
-nginx['ssl_certificate'] = "/certs/#{ENV['GITLAB_DOMAIN']}/#{ENV['GITLAB_DOMAIN']}.crt"
-nginx['ssl_certificate_key'] = "/certs/#{ENV['GITLAB_DOMAIN']}/#{ENV['GITLAB_DOMAIN']}.key"
+nginx['ssl_certificate'] = "/certs/#{ENV['DOMAIN_GITLAB']}/#{ENV['DOMAIN_GITLAB']}.crt"
+nginx['ssl_certificate_key'] = "/certs/#{ENV['DOMAIN_GITLAB']}/#{ENV['DOMAIN_GITLAB']}.key"
 ## SSH
 # Domain name
 # most of the time the same as the domain of the app
-gitlab_rails["gitlab_ssh_host"] = "#{ENV['GITLAB_DOMAIN']}"
+gitlab_rails["gitlab_ssh_host"] = "#{ENV['DOMAIN_GITLAB']}"
 # SSH port
 # Only affect the text shown when cloning with SSH
 # And not the actual SSH port
@@ -38,11 +38,11 @@ registry["enable"] = enable_registry
 gitlab_rails["registry_enabled"] = enable_registry
 if (enable_registry)
     # Domain name
-    registry_external_url "https://#{ENV['GITLAB_REGISTRY_DOMAIN']}"
+    registry_external_url "https://#{ENV['DOMAIN_GITLAB_REGISTRY']}"
     # Mandatory
     gitlab_rails["registry_path"] = "/var/opt/gitlab/gitlab-rails/shared/registry"
-    registry_nginx["ssl_certificate"] = "/certs/#{ENV['GITLAB_REGISTRY_DOMAIN']}/#{ENV['GITLAB_REGISTRY_DOMAIN']}.crt"
-    registry_nginx["ssl_certificate_key"] = "/certs/#{ENV['GITLAB_REGISTRY_DOMAIN']}/#{ENV['GITLAB_REGISTRY_DOMAIN']}.key"
+    registry_nginx["ssl_certificate"] = "/certs/#{ENV['DOMAIN_GITLAB_REGISTRY']}/#{ENV['DOMAIN_GITLAB_REGISTRY']}.crt"
+    registry_nginx["ssl_certificate_key"] = "/certs/#{ENV['DOMAIN_GITLAB_REGISTRY']}/#{ENV['DOMAIN_GITLAB_REGISTRY']}.key"
 end
 ## SSO/SAML
 # url: https://docs.gitlab.com/ee/integration/saml.html
@@ -54,10 +54,10 @@ if (enable_saml)
         name: "saml",
         label: "SSO Login",
         args: {
-            assertion_consumer_service_url: "https://#{ENV['GITLAB_DOMAIN']}/users/auth/saml/callback",
+            assertion_consumer_service_url: "https://#{ENV['DOMAIN_GITLAB']}/users/auth/saml/callback",
             idp_cert_fingerprint: "#{ENV['SAML_IDP_CERT_FINGERPRINT']}",
             idp_sso_target_url: "#{ENV['SAML_IDP_SSO_TARGET_URL']}",
-            issuer: "https://#{ENV['GITLAB_DOMAIN']}",
+            issuer: "https://#{ENV['DOMAIN_GITLAB']}",
             name_identifier_format: "urn:oasis:names:tc:SAML:2.0:nameid-format:persistent"
         }
     }]
