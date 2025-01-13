@@ -61,7 +61,3 @@ if (enable_saml)
         }
     }]
 end
-## Backups
-#gitlab_rails["backup_path"] = "/backups"
-# Automatically remove backups every 3 months
-gitlab_rails["backup_keep_time"] = 7776000
