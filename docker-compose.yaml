@@ -19,9 +19,9 @@ services:
             # Starting script
             GITLAB_POST_RECONFIGURE_SCRIPT: /scripts/init.sh
             # Files right
-            DEFAULT_FILE_UID: ${DEFAULT_FILE_UID:-1000}
-            DEFAULT_FILE_GID: ${DEFAULT_FILE_GID:-100}
-            DEFAULT_FILE_RIGHT: ${DEFAULT_FILE_RIGHT:-755}
+            DEFAULT_FILE_UID: ${DEFAULT_FILE_UID:-998}
+            DEFAULT_FILE_GID: ${DEFAULT_FILE_GID:-998}
+            DEFAULT_FILE_RIGHT: ${DEFAULT_FILE_RIGHT:-600}
         ports:
             - '${HTTP_PORT:-80}:80'
             - '${HTTPS_PORT:-443}:443'

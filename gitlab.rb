@@ -18,11 +18,11 @@ external_url "https://#{ENV['DOMAIN_GITLAB']}"
 gitlab_rails["time_zone"] = "#{ENV['TZ']}"
 # Disabling access of public repos
 # to non-connected users
-gitlab_pages['access_control'] = true
+gitlab_pages["access_control"] = true
 # Needed for HTTPS
 # (And HTTPS is mandatory)
-nginx['ssl_certificate'] = "/certs/#{ENV['DOMAIN_GITLAB']}/#{ENV['DOMAIN_GITLAB']}.crt"
-nginx['ssl_certificate_key'] = "/certs/#{ENV['DOMAIN_GITLAB']}/#{ENV['DOMAIN_GITLAB']}.key"
+nginx["ssl_certificate"] = "/certs/#{ENV['DOMAIN_GITLAB']}/#{ENV['DOMAIN_GITLAB']}.crt"
+nginx["ssl_certificate_key"] = "/certs/#{ENV['DOMAIN_GITLAB']}/#{ENV['DOMAIN_GITLAB']}.key"
 ## SSH
 # Domain name
 # most of the time the same as the domain of the app
@@ -32,7 +32,6 @@ gitlab_rails["gitlab_ssh_host"] = "#{ENV['DOMAIN_GITLAB']}"
 # And not the actual SSH port
 gitlab_rails["gitlab_shell_ssh_port"] = "#{ENV['SSH_PORT']}"
 ## Container Registry
-#nginx["enable"] = enable_registry
 registry_nginx["enable"] = enable_registry
 registry["enable"] = enable_registry
 gitlab_rails["registry_enabled"] = enable_registry
@@ -63,6 +62,6 @@ if (enable_saml)
     }]
 end
 ## Backups
-gitlab_rails['backup_path'] = '/backups'
+#gitlab_rails["backup_path"] = "/backups"
 # Automatically remove backups every 3 months
-gitlab_rails['backup_keep_time'] = 7776000
+gitlab_rails["backup_keep_time"] = 7776000

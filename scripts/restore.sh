@@ -2,11 +2,12 @@
 
 ## Initial Variables
 
-PATH_BACKUPS_DIR='/backups'                  # 'Backups' Root Directory
-PATH_RESTORE_DIR='/restore'                  # 'Restore' Root Directory
-PATH_LOGS_DIR="$PATH_RESTORE_DIR/archive"    # 'Logs' Directory
-PATH_ARCH_DIR="$PATH_RESTORE_DIR/archive"    # 'Archive' Directory
-PATH_IP_DIR="$PATH_RESTORE_DIR/.in_progress" # 'In Progress' Directory
+PATH_BACKUPS_DIR_HOST="/backups"                  # 'Backups' Root Directory on host volume (by default `/backups`)
+PATH_BACKUPS_DIR_GITLAB="/var/opt/gitlab/backups" # 'Backups' Root Directory on Gitlab (by default `/var/opt/gitlab/backups`)
+PATH_RESTORE_DIR="/restore"                       # 'Restore' Root Directory
+PATH_LOGS_DIR="$PATH_RESTORE_DIR/archive"         # 'Logs' Directory
+PATH_ARCH_DIR="$PATH_RESTORE_DIR/archive"         # 'Archive' Directory
+PATH_IP_DIR="$PATH_RESTORE_DIR/.in_progress"      # 'In Progress' Directory
 
 ## Verifications
 
@@ -51,7 +52,7 @@ log_file="$PATH_LOGS_DIR/$datetime.log"
 in_progress_file="$PATH_IP_DIR/$datetime.tar"
 archive_file="$PATH_ARCH_DIR/$datetime.tar"
 backup_name=".restore_$datetime"
-backup_symlink="$PATH_BACKUPS_DIR/$backup_name""_gitlab_backup.tar"
+backup_symlink="$PATH_BACKUPS_DIR_GITLAB/$backup_name""_gitlab_backup.tar"
 
 ## Runtime
 
