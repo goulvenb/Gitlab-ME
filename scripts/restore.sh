@@ -51,7 +51,7 @@ log_file_in_progress="$PATH_IP_DIR/$datetime.log"
 log_file="$PATH_LOGS_DIR/$datetime.log"
 in_progress_file="$PATH_IP_DIR/$datetime.tar"
 archive_file="$PATH_ARCH_DIR/$datetime.tar"
-backup_name=".restore_$datetime"
+backup_name="restore_$datetime"
 backup_symlink="$PATH_BACKUPS_DIR_GITLAB/$backup_name""_gitlab_backup.tar"
 
 ## Runtime
@@ -71,8 +71,7 @@ ln -s "$in_progress_file" "$backup_symlink"
 # url: https://docs.gitlab.com/ee/administration/backup_restore/restore_gitlab.html#restore-for-docker-image-installations
 #      https://docs.gitlab.com/ee/administration/backup_restore/restore_gitlab.html#restore-for-linux-package-installations
 (
-    echo "Backup name:"
-    echo "  $tar"
+    echo "Backup name: $tar"
     echo ""
     echo "###############################"
     echo "###  Stopping the Services  ###"

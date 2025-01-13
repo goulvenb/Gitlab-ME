@@ -1,12 +1,9 @@
 #!/bin/sh
 
-rm -rf ./volumes/*
+rm -rf ./volumes/{config,logs,data}
 mkdir ./volumes/{config,logs,data}
 touch ./volumes/{config,logs,data}/.gitkeep
 
-rm -rf ./restore/*
+rm -rf ./restore/{.in_progress,archive}
 mkdir ./restore/{.in_progress,archive}
 touch ./restore/{.in_progress,archive}/.gitkeep
-
-find ./backups/ -mindepth 1 -regextype posix-extended -not -regex '^\./backups/[0-9]{14}_v[0-9]+\.[0-9]+\.[0-9]+_gitlab_backup\.tar$' -remove
-touch ./backups/.gitkeep
