@@ -1,4 +1,7 @@
-## minute hour day month year | user          | command
+####################################################################################
+###                                    BACKUPS                                   ###
+####################################################################################
+
 # We generate a backup in the form of `YYYYMMDDhhmmss_vXX.X.X_gitlab_backup.tar`
 # with `YYYYMMDDhhmmss` the time at which the backup started
 # and `XX.X.X` the version of Gitlab
@@ -6,5 +9,13 @@
 # We remove duplicates
 # e.g. : "20241122163000_v17.5.2_gitlab_backup.tar"
 # Note: user `gitlab-backup` do not work
-   30     16   *   *     *      root            /opt/gitlab/bin/gitlab-backup create STRATEGY=copy BACKUP="$(date '+%Y%m%d%H%M%S')_v$(grep -oP '(?<=gitlab-ce ).*' /opt/gitlab/version-manifest.txt)"
+## minute hour day month year | user          | command                                                                                                                                                                                 v We chage the ower & right of `/backups` and it's child as Gitlab change it to `998:998`
+   30     16   *   *     *      root            /bin/chown git:git /backups && /bin/chmod u+rwx /backups && /opt/gitlab/bin/gitlab-backup create STRATEGY=copy BACKUP="$(date '+%Y%m%d%H%M%S')_v$(grep -oP '(?<=gitlab-ce ).*' /opt/gitlab/version-manifest.txt)" && /bin/chown -R "$DEFAULT_FILE_UID":"$DEFAULT_FILE_GID" /backups && /bin/chmod -R "$DEFAULT_FILE_RIGHT" /backups
 # && rm $(comm -3 <(find /backups/*) <(md5sum /backups/* | sort | uniq -w 32 -d  | cut -d' ' -f3-))
+
+####################################################################################
+###                                    RESTORE                                   ###
+####################################################################################
+
+## minute hour day month year | user          | command
+   *      *    *   *     *      root            /scripts/restore.sh

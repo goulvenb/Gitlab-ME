@@ -1,12 +1,8 @@
 services:
     gitlab:
-        build:
-            context: .
-            args:
-                VERSION: ${GITLAB_VERSION?error}
-                REVISION: ${GITLAB_REVISION?error}
+        image: gitlab/gitlab-ce:${GITLAB_VERSION?error}-ce.${GITLAB_REVISION?error}
         container_name: gitlab
-        restart: 'always'
+        restart: 'no'
         environment:
             # Domain names
             DOMAIN_GITLAB: ${DOMAIN_GITLAB?error}
@@ -20,9 +16,15 @@ services:
             # SAML/SSO
             SAML_IDP_CERT_FINGERPRINT: ${SAML_IDP_CERT_FINGERPRINT}
             SAML_IDP_SSO_TARGET_URL: ${SAML_IDP_SSO_TARGET_URL}
+            # Starting script
+            GITLAB_POST_RECONFIGURE_SCRIPT: /scripts/init.sh
+            # Files right
+            DEFAULT_FILE_UID: ${DEFAULT_FILE_UID:-1000}
+            DEFAULT_FILE_GID: ${DEFAULT_FILE_GID:-100}
+            DEFAULT_FILE_RIGHT: ${DEFAULT_FILE_RIGHT:-755}
         ports:
-            - '7080:80'
-            - '7443:443'
+            - '${HTTP_PORT:-80}:80'
+            - '${HTTPS_PORT:-443}:443'
             - '${SSH_PORT:-22}:22'
         volumes:
             # Standard volumes
@@ -30,7 +32,9 @@ services:
             - './volumes/data:/var/opt/gitlab'
             - './volumes/config:/etc/gitlab'
             # Overwrite
+            - './scripts:/scripts'
             - './crond:/crond'
+            - './restore:/restore'
             - './backups:/backups'
             - './certs:/certs'
             # Config files
