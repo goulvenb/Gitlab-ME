@@ -2,7 +2,7 @@
 ###                                   VARIABLES                                  ###
 ####################################################################################
 enable_saml = !"#{ENV['SAML_IDP_CERT_FINGERPRINT']}".to_s.strip.empty? && !"#{ENV['SAML_IDP_SSO_TARGET_URL']}".to_s.strip.empty?
-enable_registry = !"#{ENV['GITLAB_REGISTRY_DOMAIN']}".to_s.strip.empty?
+enable_registry = !"#{ENV['DOMAIN_GITLAB_REGISTRY']}".to_s.strip.empty?
 
 ####################################################################################
 ###                                 OTHER CONFIGS                                ###
